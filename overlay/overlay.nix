@@ -84,6 +84,9 @@ in
       '';
     });
 
+    # Bind can't run tests when cross-compiling
+    bind = super.bind.overrideAttrs(attrs: { patches = (attrs.patches or []); nativeBuildInputs = attrs.nativeBuildInputs or [] ++ [ self.buildPackages.autoreconfHook ]; });
+
     # Things specific to mobile-nixos.
     # Not necessarily internals, but they probably won't go into <nixpkgs>.
     mobile-nixos = {

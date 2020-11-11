@@ -16,6 +16,7 @@ let
   # In the future, we may want to move the recovery configuration to a file.
   recovery = (import ../../../lib/eval-config.nix {
     inherit baseModules;
+    pkgs' = pkgs;
     modules = modules ++ [{
       mobile.system.android.bootimg.name = "recovery.img";
       mobile.boot.stage-1.bootConfig = {

@@ -23,6 +23,7 @@ let
   # In the future, we may want to move the recovery configuration to a file.
   recovery = (import ../../../lib/eval-config.nix {
     inherit baseModules;
+    pkgs' = pkgs;
     modules = modules ++ [{
       mobile.boot.stage-1.bootConfig = {
         is_recovery = true;

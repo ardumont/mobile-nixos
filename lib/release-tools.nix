@@ -1,4 +1,4 @@
-{
+{ pkgs ? import <nixpkgs> {} }: {
   # This should *never* rely on lib or pkgs.
   all-devices =
     builtins.filter
@@ -14,9 +14,10 @@
     { modules
     , device
     , additionalConfiguration ? {}
-    , baseModules ? ((import ../modules/module-list.nix) ++ [ ../modules/_nixos-integration.nix ])
+    , baseModules ? ((import ../modules/module-list.nix) ++ [ (import ../modules/_nixos-integration.nix pkgs.path) ])
   }: import ./eval-config.nix {
     inherit baseModules;
+    pkgs' = pkgs;
     modules =
       (if device ? special
       then [ device.config ]
